@@ -1,0 +1,2 @@
+tipo;descricao;data;horario
+GAVB;Preencher Clockify;diario;18:08
