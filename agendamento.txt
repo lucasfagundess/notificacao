@@ -1,2 +1,3 @@
 tipo;descricao;data;horario
 GAVB;Preencher Clockify;diario;18:08
+GAVB;one a one;30/06/2022;14:31

@@ -26,6 +26,11 @@ toaster = ToastNotifier()
 
 lista_notify = []
 while(True):
+    #Limpar a lista no inicio do dia
+    print(datetime.now().strftime('%H:%M'))
+    if datetime.now().strftime('%H:%M') == '00:00':
+        print('Limpou a lista')
+        lista_notify = []
     #Abrir arquivo de agendamento
     f = open(path + file, 'r')
     for line in f:
@@ -36,10 +41,11 @@ while(True):
         #Se data e horario do agendamento forem iguais ao dia atual e hora atual:
         if (agendamento[2] == 'diario' and agendamento[3] == datetime.now().strftime('%H:%M')) or (agendamento[2] == date.today().strftime('%d/%m/%Y') and agendamento[3] == datetime.now().strftime('%H:%M')):
             #Verificar lista de agendamento: Se notificação do agendamento já tiver sido lançada, ignorar na próxima volta do loop
-            if str(agendamento[1]) in lista_notify:
+            if agendamento[1]+"-"+agendamento[2]+"-"+agendamento[3] in lista_notify:
                 break
             #Adicionar agendamento em uma lista
-            lista_notify.append(agendamento[1])
+            lista_notify.append(agendamento[1]+"-"+agendamento[2]+"-"+agendamento[3])
+            print(str(agendamento[1])+str(agendamento[2])+str(agendamento[3])+ "-" + str(lista_notify))
             #Notificar no rodapé
             toaster.show_toast(
                 agendamento[0],
@@ -53,7 +59,4 @@ while(True):
             #Ações extras
             if 'CLOCKIFY' in str(agendamento[1]).upper():
                 webbrowser.open("https://app.clockify.me/timesheet")
-        else: 
-            #Limpar lista
-            lista_notify = []
     time.sleep(5)
